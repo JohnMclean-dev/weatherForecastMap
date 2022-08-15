@@ -1,5 +1,6 @@
 // alert user to enter api key
-prompt('enter api key: ', '');
+const key = prompt('enter api key: ', '');
+console.log(key);
 
 // set initial location on map
 var map = L.map('map').setView([0, 0], 2);
