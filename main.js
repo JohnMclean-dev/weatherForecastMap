@@ -12,7 +12,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 // get coordinate after click
-map.on('click', function(e) {
+map.on('click', function (e) {
     lat = e.latlng.lat;
     lng = e.latlng.lng;
     console.log(lat, lng);
