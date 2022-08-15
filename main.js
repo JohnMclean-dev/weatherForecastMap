@@ -16,9 +16,6 @@ map.on('click', function (e) {
     lat = e.latlng.lat;
     lng = e.latlng.lng;
     console.log(lat, lng);
-});
-
-document.addEventListener('DOMContentLoaded', function () {
     const chart = Highcharts.chart('container', {
         chart: {
             type: 'bar'
@@ -42,4 +39,5 @@ document.addEventListener('DOMContentLoaded', function () {
             data: [5, 7, 3]
         }]
     });
+    console.log(chart);
 });
