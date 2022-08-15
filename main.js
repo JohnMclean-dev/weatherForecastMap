@@ -1,6 +1,5 @@
 // alert user to enter api key
 const key = prompt('enter api key: ', '');
-console.log(key);
 
 // set initial location on map
 var map = L.map('map').setView([0, 0], 2);
@@ -11,14 +10,23 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '© OpenStreetMap'
 }).addTo(map);
 
-// get coordinate after click
-map.on('click', function (e) {
-    lat = e.latlng.lat;
-    lng = e.latlng.lng;
-    console.log(lat, lng);
+// function to retrieve and edit weather source data
+
+const url = 'https://forecast.weathersourceapis.com/v2/points/38.8552,-77.0513/days?fields=all&unitScale=IMPERIAL';
+
+console.log(fetch(url, {
+    method: 'GET',
+    headers: {
+        'accept': 'application/json',
+        'X-API-KEY': key
+    }
+}));
+
+// create chart via highcharts module, helper function for map click event
+function createChart() {
     const chart = Highcharts.chart('container', {
         chart: {
-            type: 'bar'
+            type: 'line'
         },
         title: {
             text: 'Fruit Consumption'
@@ -39,5 +47,15 @@ map.on('click', function (e) {
             data: [5, 7, 3]
         }]
     });
-    console.log(chart);
+
+    return chart
+};
+
+// get coordinate after click
+map.on('click', function (e) {
+    lat = e.latlng.lat;
+    lng = e.latlng.lng;
+    console.log(lat, lng);
+    createChart();
 });
+
