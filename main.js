@@ -1,3 +1,6 @@
+// alert user to enter api key
+prompt('enter api key: ', '');
+
 // set initial location on map
 var map = L.map('map').setView([0, 0], 2);
 
@@ -8,7 +11,6 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 // get coordinate after click
-
 map.on('click', function(e) {
     lat = e.latlng.lat;
     lng = e.latlng.lng;
