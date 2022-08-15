@@ -6,3 +6,11 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
     attribution: '© OpenStreetMap'
 }).addTo(map);
+
+// get coordinate after click
+
+map.on('click', function(e) {
+    lat = e.latlng.lat;
+    lng = e.latlng.lng;
+    console.log(lat, lng);
+});
