@@ -9,3 +9,6 @@ python -m http.server
 
 ## python 2
 python -m SimpleHTTPServer
+
+## other tips
+if you've edited the code and notice no changes use ctrl + f5 to force refresh. This is related to cache memory.
