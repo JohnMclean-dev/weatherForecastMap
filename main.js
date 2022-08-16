@@ -10,10 +10,6 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '© OpenStreetMap'
 }).addTo(map);
 
-// function to retrieve weather forecast data via api
-
-
-
 // create chart via highcharts module, helper function for map click event
 function createChart() {
     const chart = Highcharts.chart('container', {
@@ -54,16 +50,28 @@ function generateId() {
 };
 
 // function to handle click event on map
+var ids = [];
+var isMarkers = false;
+
 map.on('click', function (e) {
     // get coordinate on click event
     lat = e.latlng.lat;
     lng = e.latlng.lng;
 
+    // check to see if there is a previous marker to remove
+    if (isMarkers) {
+        map.removeLayer(marker);
+        ids.shift();
+    };
+
     // show coordinate on map, give unique id
     marker = L.marker([lat, lng]).addTo(map);
-    marker.id = generateId();
+    isMarkers = true;
+    id = generateId();
+    ids.push(id);
+    marker.id = id;
 
-    //
-    console.log(marker.id);
+    // create chart
+    console.log(marker);
     createChart();
 });
