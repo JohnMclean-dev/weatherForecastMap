@@ -1,5 +1,5 @@
 // alert user to enter api key
-// const key = prompt('enter api key: ', '');
+const key = prompt('enter api key: ', '');
 
 // set initial location on map
 var map = L.map('map').setView([0, 0], 2);
@@ -48,6 +48,13 @@ function generateId() {
     };
     return id;
 };
+
+// function to call api
+const url = 'https://api.openweathermap.org/data/2.5/weather?lat=0&lon=0&appid=' + key;
+
+fetch(url)
+    .then((response) => response.json())
+    .then((data) => console.log(data));
 
 // function to handle click event on map
 var ids = [];
