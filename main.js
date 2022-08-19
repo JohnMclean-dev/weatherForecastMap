@@ -50,7 +50,9 @@ function generateId() {
 };
 
 // function to call api
-const apiUrl = 'https://api.openweathermap.org/data/2.5/weather?lat=0&lon=0&appid=' + key;
+// const apiUrl = 'https://api.openweathermap.org/data/2.5/weather?lat=0&lon=0&appid=' + key;
+
+const apiUrl = 'https://api.openweathermap.org/data/2.5/forecast?lat=0&lon=0&appid=' + key;
 
 async function test(url) {
     hello = await getWeather(url);
