@@ -8,7 +8,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 // create chart via highcharts module, helper function for map click event
-function createChart() {
+function createChart(apiTimes) {
     const chart = Highcharts.chart('container', {
         chart: {
             type: 'line'
@@ -17,7 +17,7 @@ function createChart() {
             text: 'Fruit Consumption'
         },
         xAxis: {
-            categories: ['Apples', 'Bananas', 'Oranges']
+            categories: apiTimes
         },
         yAxis: {
             title: {
@@ -37,10 +37,21 @@ function createChart() {
 // function to get weather data
 async function getWeather(url) {
     // **TO DO** update function to catch errors
-    const response = await fetch(url);
-    const data = await response.json();
-    console.log(data['list']);
-    createChart();
+    let response = await fetch(url);
+    let data = await response.json();
+    let weather = await data['list']
+
+    // create arrays for data to display in the chart
+    times = [];
+    for (let i = 0; i < weather.length; i++) {
+        time = await weather[i]['dt_txt'];
+        times.push(time);
+    };
+
+    console.log(times);
+
+    // create chart with the data obtained above
+    createChart(times,);
 };
 
 // function to handle click event on map
@@ -54,7 +65,6 @@ map.on('click', function (e) {
     // check to see if there is a previous marker to remove
     if (isMarkers) {
         map.removeLayer(marker);
-        ids.shift();
     };
 
     // show coordinate on map, give unique id
