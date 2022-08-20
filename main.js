@@ -1,6 +1,3 @@
-// alert user to enter api key
-const key = prompt('enter api key: ', '');
-
 // set initial location on map
 var map = L.map('map').setView([0, 0], 2);
 
@@ -35,8 +32,6 @@ function createChart() {
             data: [5, 7, 3]
         }]
     });
-
-    return chart
 };
 
 // generate unique id, helper function for click event
@@ -50,23 +45,17 @@ function generateId() {
 };
 
 // function to call api
-// const apiUrl = 'https://api.openweathermap.org/data/2.5/weather?lat=0&lon=0&appid=' + key;
-
 const apiUrl = 'https://api.openweathermap.org/data/2.5/forecast?lat=0&lon=0&appid=' + key;
 
-async function test(url) {
-    hello = await getWeather(url);
-    console.log(hello)
-};
-
 async function getWeather(url) {
+    // **TO DO** update function to catch errors
     const response = await fetch(url);
     const data = await response.json();
-    //console.log(data);
-    return data
+    console.log(data);
+    return data;
 };
 
-test(apiUrl);
+getWeather(apiUrl);
 
 // function to handle click event on map
 var ids = [];
