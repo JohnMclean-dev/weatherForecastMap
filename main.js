@@ -34,6 +34,15 @@ function createChart() {
     });
 };
 
+// function to get weather data
+async function getWeather(url) {
+    // **TO DO** update function to catch errors
+    const response = await fetch(url);
+    const data = await response.json();
+    console.log(data);
+    createChart();
+};
+
 // generate unique id, helper function for click event
 function generateId() {
     var id = '';
@@ -43,19 +52,6 @@ function generateId() {
     };
     return id;
 };
-
-// function to call api
-const apiUrl = 'https://api.openweathermap.org/data/2.5/forecast?lat=0&lon=0&appid=' + key;
-
-async function getWeather(url) {
-    // **TO DO** update function to catch errors
-    const response = await fetch(url);
-    const data = await response.json();
-    console.log(data);
-    return data;
-};
-
-getWeather(apiUrl);
 
 // function to handle click event on map
 var ids = [];
@@ -75,11 +71,8 @@ map.on('click', function (e) {
     // show coordinate on map, give unique id
     marker = L.marker([lat, lng]).addTo(map);
     isMarkers = true;
-    id = generateId();
-    ids.push(id);
-    marker.id = id;
 
     // create chart
-    console.log(marker);
-    createChart();
+    apiUrl = 'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat.toString() + '&lon=' + lng.toString() + '&appid=' + key;
+    getWeather(apiUrl);
 });
