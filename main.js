@@ -39,22 +39,11 @@ async function getWeather(url) {
     // **TO DO** update function to catch errors
     const response = await fetch(url);
     const data = await response.json();
-    console.log(data);
+    console.log(data['list']);
     createChart();
 };
 
-// generate unique id, helper function for click event
-function generateId() {
-    var id = '';
-    var chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
-    for (var i = 0; i < 36; i++) {
-        id += chars.charAt(Math.floor(Math.random() * chars.length));
-    };
-    return id;
-};
-
 // function to handle click event on map
-var ids = [];
 var isMarkers = false;
 
 map.on('click', function (e) {
