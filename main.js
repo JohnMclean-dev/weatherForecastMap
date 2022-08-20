@@ -8,28 +8,25 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 // create chart via highcharts module, helper function for map click event
-function createChart(apiTimes) {
+function createChart(apiTimes, apiTemps) {
     const chart = Highcharts.chart('container', {
         chart: {
             type: 'line'
         },
         title: {
-            text: 'Fruit Consumption'
+            text: '5 day weather forecast'
         },
         xAxis: {
             categories: apiTimes
         },
         yAxis: {
             title: {
-                text: 'Fruit eaten'
+                text: 'Metrics per 3 hours'
             }
         },
         series: [{
-            name: 'Jane',
-            data: [1, 0, 4]
-        }, {
-            name: 'John',
-            data: [5, 7, 3]
+            name: 'Temperature (K)',
+            data: apiTemps
         }]
     });
 };
@@ -39,19 +36,31 @@ async function getWeather(url) {
     // **TO DO** update function to catch errors
     let response = await fetch(url);
     let data = await response.json();
-    let weather = await data['list']
+    let weathers = data['list']
+
+    console.log(weathers);
 
     // create arrays for data to display in the chart
     times = [];
-    for (let i = 0; i < weather.length; i++) {
-        time = await weather[i]['dt_txt'];
+    temps = [];
+    // rains = [];
+    for (let i = 0; i < weathers.length; i++) {
+
+        weather = weathers[i]
+        time = weather['dt_txt'];
+        temp = weather['main']['temp'];
+        /*
+        rain = weather['rain'];
+        rain = (rain === undefined) ? 0 : rain['3h'];
+        */
+
         times.push(time);
+        temps.push(temp);
+        //rains.push(rain);
     };
 
-    console.log(times);
-
     // create chart with the data obtained above
-    createChart(times,);
+    createChart(times, temps);
 };
 
 // function to handle click event on map
