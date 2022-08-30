@@ -8,7 +8,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 // create chart via highcharts module, helper function for map click event
-function createChart(apiTimes, apiTemps) {
+function createChart(apiTimes, apiTemps, apiTempsMax, apiTempsMin, apiFeelsLike) {
     const chart = Highcharts.chart('container', {
         chart: {
             type: 'line'
@@ -27,6 +27,15 @@ function createChart(apiTimes, apiTemps) {
         series: [{
             name: 'Temperature (K)',
             data: apiTemps
+        }, {
+            name: 'Temperature Max (K)',
+            data: apiTempsMax
+        }, {
+            name: 'Temperature Min (K)',
+            data: apiTempsMin
+        }, {
+            name: 'Feels like (K)',
+            data: apiFeelsLike
         }]
     });
 };
@@ -43,12 +52,20 @@ async function getWeather(url) {
     // create arrays for data to display in the chart
     times = [];
     temps = [];
+    tempsMax = [];
+    tempsMin = [];
+    feelsLikes = [];
+
     // rains = [];
     for (let i = 0; i < weathers.length; i++) {
 
         weather = weathers[i]
         time = weather['dt_txt'];
         temp = weather['main']['temp'];
+        tempMax = weather['main']['temp_max'];
+        tempMin = weather['main']['temp_min'];
+        feelsLike = weather['main']['feels_like'];
+
         /*
         rain = weather['rain'];
         rain = (rain === undefined) ? 0 : rain['3h'];
@@ -56,11 +73,15 @@ async function getWeather(url) {
 
         times.push(time);
         temps.push(temp);
+        tempsMax.push(tempMax);
+        tempsMin.push(tempMin);
+        feelsLikes.push(feelsLike);
+
         //rains.push(rain);
     };
 
     // create chart with the data obtained above
-    createChart(times, temps);
+    createChart(times, temps, tempsMax, tempsMin, feelsLikes);
 };
 
 // function to handle click event on map
