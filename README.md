@@ -1,5 +1,5 @@
-# weathersource_forecast
-forecast of weather source data after clicking on point on map
+# Open Weather Forecast
+forecast of open weather data after clicking on point on map
 
 # api key
 
