@@ -43,6 +43,7 @@ function createChart(apiTimes, apiTemps, apiTempsMax, apiTempsMin, apiFeelsLike)
 // function to get weather data
 async function getWeather(url) {
     // **TO DO** update function to catch errors
+    // Api call failing to update, figure out why
     let response = await fetch(url);
     let data = await response.json();
     let weathers = data['list']
